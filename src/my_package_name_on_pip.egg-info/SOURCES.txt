@@ -1,0 +1,6 @@
+README.md
+pyproject.toml
+src/my_package_name_on_pip.egg-info/PKG-INFO
+src/my_package_name_on_pip.egg-info/SOURCES.txt
+src/my_package_name_on_pip.egg-info/dependency_links.txt
+src/my_package_name_on_pip.egg-info/top_level.txt
