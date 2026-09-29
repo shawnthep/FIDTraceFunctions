@@ -1,5 +1,6 @@
 import configparser
 import numpy as np
+from scipy.signal import get_window
 def load_fid(path, *fields):
     #fields here are represented as "gage.samplerate", "composer.chCwidth", etc.
     
@@ -54,3 +55,18 @@ def _auto_type(value):
             pass
     return value
 
+
+def fft(time, voltage, window="hann", remove_if=False, if_freq=47e6,
+        fit_range=(100e-6, 900e-6)):
+    t = np.asarray(time, dtype=float)
+    data = np.asarray(voltage, dtype=float)
+    dt = np.median(np.diff(t))
+
+    if remove_if:
+        basis = np.column_stack([np.sin(2*np.pi*if_freq*t), np.cos(2*np.pi*if_freq*t)])
+        i0, i1 = np.searchsorted(t, fit_range)
+        coef, *_ = np.linalg.lstsq(basis[i0:i1], data[i0:i1], rcond=None)
+        data = data - basis @ coef
+
+    freqs = np.fft.rfftfreq(len(data), dt)
+    return freqs, np.fft.rfft(data * get_window(window, len(data)))
