@@ -11,11 +11,9 @@ authors = [
 description = "A short description of your Python package"
 readme = "README.md"
 requires-python = ">=3.8"
-license = "MIT" # Using the modern SPDX field fixes the warning you saw earlier!
-dependencies = [
-    "numpy",  # Add any dependencies your code actually needs here
-]
+license = "MIT"
+dependencies = []
 
-# --- NEW CONFIGURATION FOR FLAT LAYOUT ---
-[tool.setuptools]
-py-modules = ["FIDTraceFunctions"] # Tells Python to look for a file named FIDTraceFunctions.py
+# This tells setuptools to look inside 'src' and treat it as the package base
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,7 +1,0 @@
-README.md
-pyproject.toml
-FIDTraceFunctions.egg-info/PKG-INFO
-FIDTraceFunctions.egg-info/SOURCES.txt
-FIDTraceFunctions.egg-info/dependency_links.txt
-FIDTraceFunctions.egg-info/requires.txt
-FIDTraceFunctions.egg-info/top_level.txt
