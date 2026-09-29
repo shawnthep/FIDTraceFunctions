@@ -57,7 +57,7 @@ def _auto_type(value):
 
 
 def fft(time, voltage, window="hann", remove_if=False, if_freq=47e6,
-        fit_range=(100e-6, 900e-6)):
+        fit_range=(100e-6, 900e-6), range = (20e6)):
     t = np.asarray(time, dtype=float)
     data = np.asarray(voltage, dtype=float)
     dt = np.median(np.diff(t))
@@ -69,4 +69,5 @@ def fft(time, voltage, window="hann", remove_if=False, if_freq=47e6,
         data = data - basis @ coef
 
     freqs = np.fft.rfftfreq(len(data), dt)
-    return freqs, np.fft.rfft(data * get_window(window, len(data)))
+    mask = (freqs > if_freq - range) & (freqs < if_freq + range)
+    return freqs[mask], np.fft.rfft(data * get_window(window, len(data)))[mask]
