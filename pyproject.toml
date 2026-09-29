@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "FIDTraceFunctions"   # The name used in: pip install
+name = "FIDTraceFunctions"
 version = "0.1.0"
 authors = [
     { name="Your Name", email="your.email@example.com" }
@@ -11,16 +11,11 @@ authors = [
 description = "A short description of your Python package"
 readme = "README.md"
 requires-python = ">=3.8"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-]
+license = "MIT" # Using the modern SPDX field fixes the warning you saw earlier!
 dependencies = [
-    # List packages your code needs to run, for example:
-    # "requests>=2.28.0",
-    # "numpy>=1.22.0",
+    "numpy",  # Add any dependencies your code actually needs here
 ]
 
-[tool.setuptools.packages.find]
-where = ["src"]  # Tells setuptools to look inside the "src" folder
+# --- NEW CONFIGURATION FOR FLAT LAYOUT ---
+[tool.setuptools]
+py-modules = ["FIDTraceFunctions"] # Tells Python to look for a file named FIDTraceFunctions.py
