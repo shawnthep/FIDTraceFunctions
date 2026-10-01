@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+src/FIDTraceFunctions/FIDTraceFunctions.py
+src/FIDTraceFunctions/__init__.py
+src/FIDTraceFunctions.egg-info/PKG-INFO
+src/FIDTraceFunctions.egg-info/SOURCES.txt
+src/FIDTraceFunctions.egg-info/dependency_links.txt
+src/FIDTraceFunctions.egg-info/top_level.txt
