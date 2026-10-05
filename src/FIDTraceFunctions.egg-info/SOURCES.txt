@@ -6,3 +6,5 @@ src/FIDTraceFunctions.egg-info/PKG-INFO
 src/FIDTraceFunctions.egg-info/SOURCES.txt
 src/FIDTraceFunctions.egg-info/dependency_links.txt
 src/FIDTraceFunctions.egg-info/top_level.txt
+src/examples/test_fit.py
+src/examples/test_plot_fft.py
