@@ -26,3 +26,4 @@ ax.plot(time, func_to_fit(time, 0.003, 47.335e6, 200e-6,0.003, 47.46e6, 200e-6, 
 
 plt.show()'''
 
+f.fit_time_trace(time, voltage, return_fig=True, type='time')
