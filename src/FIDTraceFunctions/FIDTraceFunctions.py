@@ -78,7 +78,7 @@ def fft(time, voltage, window="box", remove_if=False, if_freq=47e6, fit_range=(5
 
     #return frequencies in Hz
     return freqs[mask], np.fft.rfft(data * get_window(window, len(data)))[mask]
-def fit_time_trace(time, voltage, start_time = 50e-6, end_time = 300e-6, return_fig = False):
+def fit_time_trace(time, voltage, start_time = 50e-6, end_time = 300e-6, return_fig = False, sample_rate = 200e6, type = 'time'):
     basis = np.column_stack([np.sin(2*np.pi*47e6*time), np.cos(2*np.pi*47e6*time)])
     i0, i1 = np.searchsorted(time, (500e-6, 1000e-6))
     coef, *_ = np.linalg.lstsq(basis[i0:i1], voltage[i0:i1], rcond=None)
@@ -101,11 +101,21 @@ def fit_time_trace(time, voltage, start_time = 50e-6, end_time = 300e-6, return_
     #print(f'Amplitudes = {a, b}a.u')
     print(f'Dephasing => {T21 / 1e-6}us ({1 / (np.pi*T21) / 1e3}kHz) and {T22 / 1e-6}us ({1 / (np.pi*T22) / 1e3}kHz)')
     if return_fig:
-        fig, ax = plt.subplots()
-        ax.plot(time_slice / 1e-6, voltage_slice)
+       
+        if type == 'time':
+            fig, ax = plt.subplots()
+            ax.plot(time_slice / 1e-6, voltage_slice)
 
-        ax.plot(time_slice / 1e-6, func_to_fit(time_slice, *popt))
-        ax.set_ylabel('Amplitude (a.u.)')
-        ax.set_xlabel('Time (us)')
-        plt.show()
+            ax.plot(time_slice / 1e-6, func_to_fit(time_slice, *popt))
+            ax.set_ylabel('Amplitude (a.u.)')
+            ax.set_xlabel('Time (us)')
+            plt.show()
+        elif type == 'frequency':
+            fig, ax = plt.subplots()
+            freqs = np.fft.rfftfreq(len(voltage_slice), 1/sample_rate)
+            ax.plot(freqs, np.abs(np.fft.rfft(voltage_slice)))
+            ax.set_ylabel('Amplitude (a.u.)')
+            ax.set_xlabel('Frequency (Hz)')
+            plt.show()  
+
     return popt, pcov
